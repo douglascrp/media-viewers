@@ -1,37 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.sharextras</groupId>
+    <groupId>se.loftux.extensions.mediaviewers</groupId>
     <artifactId>media-viewers</artifactId>
-    <packaging>jar</packaging>
-    <name>Media Viewers</name>
-    <version>2.6-${buildnumber}</version>
+    <packaging>pom</packaging>
+    <name>Loftux Media Viewers</name>
+    <description>An extended version of Alfresco Media viewers plugin.</description>
+    <version>1.0</version>
 
-    <properties>
-        <buildnumber>SNAPSHOT</buildnumber>
-    </properties>
-
-    <dependencies>
-    </dependencies>
-    
-    <build>
-        <resources>
-            <resource>
-                <directory>config</directory>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <warSourceDirectory>source/web</warSourceDirectory>
-                    <useCache>true</useCache>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+    <modules>
+        <module>media-viewers-repo</module>
+        <module>media-viewers-share</module>
+    </modules>
 </project>
