@@ -4,6 +4,7 @@
 </@>
 
 <@markup id="prettify-js-dependencies" target="js" action="after" scope="global">
+    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/web-preview-extend.js" group="${dependencyGroup}" />
     <@script type="text/javascript" src="${url.context}/res/extras/components/preview/Prettify.js" group="${dependencyGroup}" />
     <@script type="text/javascript" src="${url.context}/res/extras/modules/prettify/prettify.js" group="${dependencyGroup}" />
 </@>

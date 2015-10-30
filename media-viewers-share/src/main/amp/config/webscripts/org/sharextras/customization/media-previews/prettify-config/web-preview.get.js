@@ -82,7 +82,12 @@ if (model.widgets)
                }
             }]
          });
-         var oldConditions = eval("("+jsonUtils.toObject("{\"tmp\":" + widget.options.pluginConditions + "}").tmp.toString()+")");
+         var oldConditions = JSON.parse(widget.options.pluginConditions.toString());
+
+         //eval(
+             //"("+jsonUtils.toObject('{\"tmp\":' +
+             //    widget.options.pluginConditions +
+             //    '}').tmp.toString()+")");
          // Add the other conditions back in
          for (var j = 0; j < oldConditions.length; j++)
          {
