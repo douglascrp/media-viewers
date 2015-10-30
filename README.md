@@ -1,9 +1,8 @@
-Media Viewers for Alfresco Share
-================================
+# Loftux Media Viewers for Alfresco Share
 
-Authors: Will Abson (Alfresco), Peter Löfgren (Loftux AB)
+Based on original Media Viewers Add-on for Alfresco Share by Will Abson and Peter Lofgren.
 
-This add-on project for Alfresco Share provides a number of content viewers to complement the out-of-the box set supplied with Share, plus a dashlet allowing any content item to be displayed on a site dashboard. The add-on was previously known as _Media Previews_.
+This add-on project for Alfresco Share provides a number of content viewers to complement the out-of-the box set supplied with Share, plus a dashlet allowing any content item to be displayed on a site dashboard. The original add-on was previously known as _Media Previews_.
 
 Introduction
 ------------
@@ -12,14 +11,14 @@ Viewers can be configured into the Web Preview component of the Document Details
 
 ### Custom Viewers
 
-The following viewers are supplied in the v2.x add-on for use on Alfresco 4
+The following viewers are supplied in the v2.x add-on for use on Alfresco 4 and 5.
 
 #### PdfJs
 
 PdfJs displays documents, presentations and any other file capable of being transformed to PDF in-line in the web browser using the excellent [pdf.js](http://mozilla.github.com/pdf.js/) viewer, which uses the power of HTML5 to remove Share's Flash dependency for document viewing.
-  
+
 The viewer supports a number of features not directly supported by the Flash document previewer, such as a sidebar with thumbnail, outline and search views, bookmarking of individual pages of a document, and will remember the page number and zoom level of previous documents that you have viewed.
-  
+
 ![PdfJs Viewer](screenshots/pdfjs-pres-20.png)
 
 ### FLVPlayer and MP3Player
@@ -31,7 +30,7 @@ be viewed.
 
 #### Embed
 
-Embed uses an in-line iFrame to embed the content itself directly inside the web page. It is suitable for use with content types that can be viewed directly within the web browser such as plain text and PDF, with the Chrome or Acrobat plugins installed. Again, this can be used to avoid the use of 
+Embed uses an in-line iFrame to embed the content itself directly inside the web page. It is suitable for use with content types that can be viewed directly within the web browser such as plain text and PDF, with the Chrome or Acrobat plugins installed. Again, this can be used to avoid the use of
 the Flash previewer for some clients.
 
 #### Prettify
@@ -44,7 +43,7 @@ project to provide an in-line browser-based view with syntax highlighting.
 
 #### WebODF
 
-WebODF is an EXPERIMENTAL viewer which uses the AGPL-licensed [WebODF](http://www.webodf.org/) 
+WebODF is an EXPERIMENTAL viewer which uses the AGPL-licensed [WebODF](http://www.webodf.org/)
 project to display ODF content directly in the web browser.
 
 WebODF cannot be distributed with the add-in itself, so in order to use it you must also
@@ -54,7 +53,7 @@ install it in the same way as the main media-viewers JAR file.
 ### Document Viewer Dashlet
 
 This custom dashlet allows a site administrator to pick a content item from the site which will be displayed to
-all site members on the site dashboard. The dashlet will choose the correct viewer automatically and is 
+all site members on the site dashboard. The dashlet will choose the correct viewer automatically and is
 able to use the out-of-the-box viewers supplied plus the custom viewers provided by this add-on or other add-ons.
 
 ![Document Viewer Dashlet](screenshots/pdfjs-dashlet-20.png)
@@ -62,19 +61,13 @@ able to use the out-of-the-box viewers supplied plus the custom viewers provided
 ### Repository Configuration
 
 In addition to the Share component extensions the add-on supplies repository extension configuration
-for defining 'thumbnailed' content in PDF, H264/FLV and MP3 formats, a full-size image thumbnail for 
+for defining 'thumbnailed' content in PDF, H264/FLV and MP3 formats, a full-size image thumbnail for
 video files in JPEG format, and a transformer based on FFmpeg for generating the audio and video formats.
 
 Download
 --------
 
-For Alfresco 4.x, download the latest 2.x version of Media Viewers.
-
- * [Download Media Viewers add-on](http://code.google.com/p/share-extras/downloads/list?q=media-viewers)
-
-For Alfresco 3.x, download the latest 0.x or 1.0 version of Media Preview.
-
- * [Download Media Previews add-on](http://code.google.com/p/share-extras/downloads/list?q=media-preview)
+For commercial downloads and support, please contact [Loftux AB](https://loftux.com/contact).
 
 Installation
 ------------
@@ -93,13 +86,13 @@ The previews therefore do not require FFmpeg, but it is highly recommended to su
 To enable FFmpeg support you must
 
 1. Install FFmpeg (with [x264](http://www.videolan.org/developers/x264.html)) on the server
-   
+
    It is unlikely that your standard package manager will install this for you. The [FFmpeg documentation](https://ffmpeg.org/trac/ffmpeg/wiki) does however contain detailed documentation for compiling on [Ubuntu](https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide) and [other operating systems](https://ffmpeg.org/trac/ffmpeg/wiki/CompilationGuide) and the project also makes pre-built binaries available for [download](http://ffmpeg.org/download.html).
-   
+
 2. If the `ffmpeg` executable is not on your system's PATH (i.e. typing `ffmpeg -version` indicates that `ffmpeg` could not be found), you must edit your `alfresco-global.properties` file to define the correct location, e.g.
 
         ffmpeg.exe=C:\\FFmpeg\\ffmpeg.exe
-   
+
    The path should not contain spaces, and if you are on Windows you should use forward slashes rather than backslashes as your directory separator, or use double-backslashes to escape them.
 
 If you are running Alfresco and Share in the same application server then the JAR file also contains the required repository configuration, but if these are in separate containers then you will need to install it into both.
@@ -109,25 +102,9 @@ Check the `alfresco.log` file while the repository is starting up for any warnin
 Building from Source
 --------------------
 
-The dashlet is packaged as a single JAR file for easy installation into Alfresco Share.
+The project uses the Alfresco Maven SDK.
 
-An Ant build script is provided to build a JAR file containing the custom files, which can then be installed into the `tomcat/shared/lib` folder of your Alfresco installation.
-
-To build the JAR file, run the Ant from the base project directory.
-
-    ant -f project.xml dist-jar
-
-Or, for the 0.x/1.0 release
-
-    ant dist-jar
-
-The command should build a JAR file named `media-viewers-<version>.jar` in the `build/dist` directory within your project.
-
-To deploy the add-on files into a local Tomcat instance for testing, you can use the `hotcopy-tomcat-jar` task. You will need to set the `tomcat.home` property in Ant.
-
-    ant -f project.xml -Dtomcat.home=C:/Alfresco/tomcat hotcopy-tomcat-jar
-
-After you have deployed the JAR file you will need to restart Tomcat to ensure it picks up the changes.
+Run individiual components using `run.sh` or `run.bat` files available within individual modules.
 
 Configuration
 -------------
@@ -153,15 +130,15 @@ If you are using Media Viewers 2.5 or greater on Alfresco 4.2, then you can use 
 
 ### Alfresco 4.0/4.1
 
-If installing the add-on in Alfresco 4.0/4.1, you must configure the `web-preview.get` component to use the particular viewers that you wish to enable. To do this, you must 
+If installing the add-on in Alfresco 4.0/4.1, you must configure the `web-preview.get` component to use the particular viewers that you wish to enable. To do this, you must
 
 1. Copy the file `WEB-INF/classes/alfresco/site-webscripts/org/alfresco/components/preview/web-preview.get.config.xml` from the exploded Alfresco webapp into the directory `alfresco/web-extension/site-webscripts/org/alfresco/components/preview` under your `tomcat/shared/classes`. You will need to create the new directories if you have not done this previously.
 
 2. Modify that file to add in the new viewers as needed, or replace the content with the [suggested sample configuration](https://gist.github.com/wabson/5057107)
 
-An in-depth discussion of the redesigned `web-preview` component in Alfresco 4 is provided on 
+An in-depth discussion of the redesigned `web-preview` component in Alfresco 4 is provided on
 [Will's blog](http://blogs.alfresco.com/wp/wabson/2012/04/11/share-document-previews-in-alfresco-4/),
-where the configuration mechanism is explained. 
+where the configuration mechanism is explained.
 
 Usage
 -----
@@ -184,17 +161,17 @@ If you see this on your system, check that the add-on is installed correctly and
 
 ###FFmpeg
 
-If you have problems with audio and video previews or thumbnails not working, first check your `alfresco.log` for any errors being thrown at startup, relating to FFmpeg. 
-If no errors are shown, you can force the transformers to give you a little more information by adding the 
+If you have problems with audio and video previews or thumbnails not working, first check your `alfresco.log` for any errors being thrown at startup, relating to FFmpeg.
+If no errors are shown, you can force the transformers to give you a little more information by adding the
 following lines to the file `webapps/alfresco/WEB-INF/classes/log4j.properties`.
 
     log4j.logger.org.alfresco.util.exec.RuntimeExec=debug
     log4j.logger.org.alfresco.repo.content.transform=debug
     log4j.logger.org.alfresco.repo.thumbnail=debug
 
-If no problems are obvious and you _still_ find that thumbnails do not get generated or the player does not render, 
-you can make a direct request for the specific renditions to help diagnose the problem. In the URLs below you 
-will need to replace the `{nodeId}` token with the GUID of the problematic file (which you can grab from the end of 
+If no problems are obvious and you _still_ find that thumbnails do not get generated or the player does not render,
+you can make a direct request for the specific renditions to help diagnose the problem. In the URLs below you
+will need to replace the `{nodeId}` token with the GUID of the problematic file (which you can grab from the end of
 the Document Details page URL), and substitute in the hostname of your server in place of `{hostname}`.
 
  * For thumbnail problems, hit [http://{hostname}/share/proxy/alfresco/api/node/workspace/SpacesStore/{nodeId}/content/thumbnails/doclib?c=force](http://{hostname}/share/proxy/alfresco/api/node/workspace/SpacesStore/{nodeId}/content/thumbnails/doclib?c=force)
@@ -207,13 +184,18 @@ Known Issues
 
 * Internet Explorer is only supported in version 10 and greater due to performance problems in that browser. The Embed viewer can be used instead, otherwise rendering will fall back to the out-of-the-box Flash viewer.
 
-* In versions 3.3, 3.4.a, 3.4.b and 3.4.c, the video player only supports previews of MP4 and FLV content, due to 
-  a bug whereby the thumbnail service [cannot produce renditions using a RuntimeExec transformer](https://issues.alfresco.com/jira/browse/ALF-4214). 
-  The workaround for this is to apply the fix in the JIRA issue to patch your 
+* In versions 3.3, 3.4.a, 3.4.b and 3.4.c, the video player only supports previews of MP4 and FLV content, due to
+  a bug whereby the thumbnail service [cannot produce renditions using a RuntimeExec transformer](https://issues.alfresco.com/jira/browse/ALF-4214).
+  The workaround for this is to apply the fix in the JIRA issue to patch your
   own `alfresco-repository.jar`. This is fixed in version 3.4.d.
 
-* Prior to Alfresco Community 3.4.b, adding the additional thumbnail definitions to the thumbnail registry required 
-  overriding the entire thumbnailRegistry bean. The supplied Spring configuration still uses this old method for now 
-  in order to support the widest range of versions, but if this causes you problems you can use the new 
-  `org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegistrer` bean instead 
+* Prior to Alfresco Community 3.4.b, adding the additional thumbnail definitions to the thumbnail registry required
+  overriding the entire thumbnailRegistry bean. The supplied Spring configuration still uses this old method for now
+  in order to support the widest range of versions, but if this causes you problems you can use the new
+  `org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegistrer` bean instead
   ([example config](http://fisheye.alfresco.com/browse/alfresco_open_mirror/alfresco/HEAD/root/projects/repository/config/alfresco/extension/video-transformation-context.xml.sample?r=22817))
+
+## Authors
+* Peter Lofgren ([Loftux AB](https://loftux.com?ref=mediaviewers-p))
+* Will Abson ([Alfresco](https://alfresco.com))
+* [Bhagya Silva](https://about.me/bhagyas) ([Loftux AB](https://loftux.com?ref=mediaviewers-b))
