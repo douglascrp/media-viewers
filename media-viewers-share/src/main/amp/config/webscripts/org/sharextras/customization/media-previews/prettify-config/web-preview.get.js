@@ -40,6 +40,17 @@ if (model.widgets)
          });
          conditions.push({
             attributes: {
+               mimeType: "application/x-r"
+            },
+            plugins: [{
+               name: "Prettify",
+               attributes: {
+                  lang: "lang-r"
+               }
+            }]
+         });
+         conditions.push({
+            attributes: {
                mimeType: "application/x-sh"
             },
             plugins: [{
