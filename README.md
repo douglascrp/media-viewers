@@ -4,6 +4,13 @@ Based on original Media Viewers Add-on for Alfresco Share by Will Abson and Pete
 
 This add-on project for Alfresco Share provides a number of content viewers to complement the out-of-the box set supplied with Share, plus a dashlet allowing any content item to be displayed on a site dashboard. The original add-on was previously known as _Media Previews_.
 
+
+##Version and Updates
+###1.1 (5 October 2016)
+-  Adds support for thumbnails for AVI files.
+-  Adds support for previewing .r files
+
+
 Introduction
 ------------
 

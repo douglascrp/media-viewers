@@ -75,15 +75,15 @@
       </property>
    </bean>
 
-   <bean id="org_sharextras_media-viewers_ffmpeg.transform.thumbnail" parent="org_sharextras_media-viewers_ffmpeg.transform">
-      <property name="defaultProperties">
-          <map merge="true">
-              <entry key="infile_opts" value="-ss 10" />
-              <entry key="outfile_format" value="image2" />
-              <entry key="outfile_opts" value="-vframes 1" />
-          </map>
-      </property>
-   </bean>
+    <bean id="org_sharextras_media-viewers_ffmpeg.transform.thumbnail" parent="org_sharextras_media-viewers_ffmpeg.transform">
+        <property name="defaultProperties">
+            <map merge="true">
+                <entry key="infile_opts" value="" />
+                <entry key="outfile_format" value="image2" />
+                <entry key="outfile_opts" value="-r 1 -vframes 1" />
+            </map>
+        </property>
+    </bean>
 
    <bean id="org_sharextras_media-viewers_ffmpeg.transform.mp3" parent="org_sharextras_media-viewers_ffmpeg.transform">
       <property name="defaultProperties">
