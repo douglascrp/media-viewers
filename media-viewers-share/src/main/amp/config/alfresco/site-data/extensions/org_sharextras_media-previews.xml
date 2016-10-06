@@ -126,6 +126,19 @@
         -->
 
         <module>
+            <id>GIF Player</id>
+            <version>${noSnapshotVersion}</version>
+            <customizations>
+                <customization>
+                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
+                    <sourcePackageRoot>org.sharextras.customization.media-previews.gifplayer</sourcePackageRoot>
+                </customization>
+            </customizations>
+            <auto-deploy>false</auto-deploy>
+        </module>
+
+
+        <module>
             <id>Embed Viewer</id>
             <version>${noSnapshotVersion}</version>
             <customizations>

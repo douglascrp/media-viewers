@@ -6,6 +6,10 @@ This add-on project for Alfresco Share provides a number of content viewers to c
 
 
 ##Version and Updates
+
+###1.1.1 (6 October 2016)
+-  Adds support for inline viewing of animated GIF files.
+
 ###1.1 (5 October 2016)
 -  Adds support for thumbnails for AVI files.
 -  Adds support for previewing .r files
