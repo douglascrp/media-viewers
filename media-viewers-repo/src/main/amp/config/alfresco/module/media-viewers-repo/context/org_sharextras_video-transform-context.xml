@@ -17,7 +17,7 @@
       </property>
    </bean>
 
-   <!-- Default FFMpeg execution -->
+    <!-- Default FFMpeg execution -->
    <bean id="org_sharextras_media-viewers_ffmpeg.transform" class="org.alfresco.util.exec.RuntimeExec" abstract="true">
       <property name="commandsAndArguments">
          <map>

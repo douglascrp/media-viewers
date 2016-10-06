@@ -29,6 +29,17 @@
         -->
     </bean>
 
+
+    <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.gif"
+            parent="org_sharextras_media-viewers_thumbnail.transformationOptions">
+        <!--
+        <property name="propertyValues">
+            <props merge="true">
+                <prop key="outfile_opts">-ar 44100 -ab 96k -vcodec libx264 -crf 25 -g 250 -r 25</prop>
+            </props>
+        </property>
+        -->
+    </bean>
     <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4"
             parent="org_sharextras_media-viewers_thumbnail.transformationOptions">
         <!--
@@ -74,6 +85,20 @@
                 <property name="name" value="h264preview" />
                 <property name="mimetype" value="video/mp4"/>
                 <property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4" />
+                <property name="runAs" value="System"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- GIF thumbnail options -->
+    <bean id="org_sharextras_media-viewers_thumbnail.register.gif_animated" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">
+        <property name="thumbnailRegistry" ref="thumbnailRegistry" />
+        <property name="thumbnailDefinition">
+            <!-- H264 preview thumbnail options -->
+            <bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
+                <property name="name" value="gif_animated" />
+                <property name="mimetype" value="image/gif"/>
+                <property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.gif" />
                 <property name="runAs" value="System"/>
             </bean>
         </property>

@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans-2.0.dtd'>
+
+<beans>
+
+
+    <!--Default GIF execution-->
+    <!--ffmpeg -i input -vf scale=320:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay 5 -loop 0 - gif:- | convert -layers Optimize - output.gif-->
+
+    <!--
+    ffmpeg
+    -i
+    input
+    -f image2pipe
+    -vf scale=320:-1 -r 10 -vcodec ppm - | convert -delay 5 -loop 0 - gif:- | convert -layers Optimize -
+     output.gif
+     -->
+    <!-- Default FFMpeg GIF execution -->
+    <bean id="org_sharextras_media-viewers_ffmpeg_gif.transform" class="org.alfresco.util.exec.RuntimeExec" abstract="true">
+        <property name="commandsAndArguments">
+            <map>
+                <entry key="*">
+                    <list>
+                        <value>${ffmpeg.exe}</value>
+                        <value>SPLIT:${opts}</value>
+                        <value>SPLIT:${infile_opts}</value>
+                        <value>-i</value>
+                        <value>${source}</value>
+                        <value>-f</value>
+                        <value>${outfile_format}</value>
+                        <value>SPLIT:${outfile_opts}</value>
+                        <value>${target}</value>
+                    </list>
+                </entry>
+            </map>
+        </property>
+        <property name="defaultProperties">
+            <map>
+                <entry key="opts" value="" />
+                <entry key="infile_opts" value="" />
+                <entry key="outfile_format" value="image2pipe"/>
+                <entry key="outfile_opts" value="-vf scale=320:-1 -r 10 -vcodec ppm - | convert -delay 5 -loop 0 - gif:- | convert -layers Optimize -" />
+            </map>
+        </property>
+        <property name="waitForCompletion">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <bean id="org_sharextras_media-viewers_ffmpeg_gif.transform.gif" parent="org_sharextras_media-viewers_ffmpeg_gif.transform">
+        <property name="defaultProperties">
+            <map merge="true">
+            </map>
+        </property>
+    </bean>
+
+    <bean id="transformer.worker.org_sharextras_media-viewers_ffmpeg_gif.gif" class="org.alfresco.repo.content.transform.RuntimeExecutableContentTransformerWorker">
+        <property name="mimetypeService">
+            <ref bean="mimetypeService" />
+        </property>
+        <property name="checkCommand" ref="org_sharextras_media-viewers_ffmpeg.present" />
+        <property name="transformCommand" ref="org_sharextras_media-viewers_ffmpeg_gif.transform.gif" />
+        <!-- Transform to MP4 -->
+        <property name="explicitTransformations">
+            <list>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/mp4</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/mpeg</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/mpeg2</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/x-sgi-movie</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/x-msvideo</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/quicktime</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/x-ms-asf</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/x-ms-wmv</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/x-rad-screenplay</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/ogg</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+                <bean class="org.alfresco.repo.content.transform.ExplictTransformationDetails" >
+                    <property name="sourceMimetype"><value>video/webm</value></property>
+                    <property name="targetMimetype"><value>image/gif</value></property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+</beans>

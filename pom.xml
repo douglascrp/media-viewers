@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <name>Loftux Media Viewers</name>
     <description>An extended version of Alfresco Media viewers plugin. The project contains additional content viewers to complement the out-of-the box set supplied with Share</description>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
 
     <modules>
         <module>media-viewers-repo</module>
