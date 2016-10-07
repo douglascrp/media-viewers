@@ -80,7 +80,7 @@
             <map merge="true">
                 <entry key="infile_opts" value="" />
                 <entry key="outfile_format" value="image2" />
-                <entry key="outfile_opts" value="-r 1 -vframes 1" />
+                <entry key="outfile_opts" value="-r 1 -vframes 1 -pix_fmt yuv420p" />
             </map>
         </property>
     </bean>
