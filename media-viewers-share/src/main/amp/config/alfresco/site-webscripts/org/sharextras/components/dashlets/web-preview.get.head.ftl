@@ -7,6 +7,8 @@
 <@script type="text/javascript" src="${page.url.context}/res/modules/document-picker/document-picker.js"></@script>
 <@script type="text/javascript" src="${page.url.context}/res/components/object-finder/object-finder.js"></@script>
 <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/modules/document-picker/document-picker.css" />
+<@link rel="stylesheet" type="text/css" href="${page.url.context}/res/components/object-finder/object-finder.css" group="dashlets" />
+
 <!-- Preview -->
 <!-- Alfresco.WebPreview  -->
 <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/components/preview/web-preview.css" />
@@ -20,10 +22,10 @@
 <@script type="text/javascript" src="${page.url.context}/res/js/flash/extMouseWheel.js"></@script>
 
 <!-- Alfresco.WebPreviewer.Plugins.FlashFox -->
-<@script type="text/javascript" src="${page.url.context}/res/components/preview/FlashFox.js"></@script>
+<#--<@script type="text/javascript" src="${page.url.context}/res/components/preview/FlashFox.js"></@script>-->
 
 <!-- Alfresco.WebPreviewer.Plugins.StrobeMediaPlayback -->
-<@script type="text/javascript" src="${page.url.context}/res/components/preview/StrobeMediaPlayback.js"></@script>
+<#--<@script type="text/javascript" src="${page.url.context}/res/components/preview/StrobeMediaPlayback.js"></@script>-->
 
 <!-- Alfresco.WebPreviewer.Plugins.Video -->
 <@script type="text/javascript" src="${page.url.context}/res/components/preview/Video.js"></@script>

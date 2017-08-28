@@ -20,15 +20,15 @@
        $hasEventInterest = Alfresco.util.hasEventInterest;
 
    /**
-    * VideoWidget constructor.
+    * DocumentViewerDashlet constructor.
     * 
     * @param {String} htmlId The HTML id of the parent element
-    * @return {Alfresco.dashlet.VideoWidget} The new VideoWidget instance
+    * @return {Alfresco.dashlet.DocumentViewerDashlet} The new DocumentViewerDashlet instance
     * @constructor
     */
-   Alfresco.dashlet.VideoWidget = function(htmlId)
+   Alfresco.dashlet.DocumentViewerDashlet = function(htmlId)
    {
-      Alfresco.dashlet.VideoWidget.superclass.constructor.call(this, "Alfresco.dashlet.VideoWidget", htmlId, ["button", "container", "datatable", "datasource", "uploader"]);
+      Alfresco.dashlet.DocumentViewerDashlet.superclass.constructor.call(this, "Alfresco.dashlet.DocumentViewerDashlet", htmlId, ["button", "container", "datatable", "datasource", "uploader"]);
       
       // Initialise prototype properties
       this.configDialog = null;
@@ -42,7 +42,7 @@
       return this;
    };
 
-   YAHOO.extend(Alfresco.dashlet.VideoWidget, Alfresco.component.Base,
+   YAHOO.extend(Alfresco.dashlet.DocumentViewerDashlet, Alfresco.component.Base,
    {
 
       /**
@@ -137,7 +137,7 @@
        *
        * @method onReady
        */
-      onReady: function VideoWidget_onReady()
+      onReady: function ViewerDashlet_onReady()
       {
          // Cache frequently used Dom elements
          this.titleEl = Dom.get(this.id + "-title");
@@ -344,21 +344,22 @@
        * @method onConfigFeedClick
        * @param e The click event
        */
-      onConfigVideoClick: function VideoWidget_onConfigVideoClick(e)
+      onConfigDashletClick: function Dashlet_onConfigDashletClick(e)
       {
-         var actionUrl = Alfresco.constants.URL_SERVICECONTEXT + "modules/dashlet/config/" + encodeURIComponent(this.options.componentId);
-         
          Event.stopEvent(e);
-         
+
+         var actionUrl = Alfresco.constants.URL_SERVICECONTEXT + "modules/dashlet/config/" + encodeURIComponent(this.options.componentId);
+
          if (!this.configDialog)
          {
             this.configDialog = new Alfresco.module.SimpleDialog(this.id + "-configDialog").setOptions(
             {
-               templateUrl: Alfresco.constants.URL_SERVICECONTEXT + "extras/modules/video/config", actionUrl: actionUrl,
+               templateUrl: Alfresco.constants.URL_SERVICECONTEXT + "extras/modules/video/config",
+               actionUrl: actionUrl,
                siteId: this.options.siteId,
                onSuccess:
                {
-                  fn: function VideoWidget_onConfigFeed_callback(response)
+                  fn: function Dashlet_onConfigFeed_callback(response)
                   {
                       // Update options from the submitted form fields
                       this.options.nodeRef = Dom.get(this.configDialog.id + "-nodeRef").value;
@@ -379,13 +380,14 @@
                },
                doSetupFormsValidation:
                {
-                  fn: function VideoWidget_doSetupForm_callback(form)
+                  fn: function DocumentViewerDashlet_doSetupForm_callback(form)
                   {
                      Dom.get(this.configDialog.id + "-nodeRef").value = this.options.nodeRef;
                      Dom.get(this.configDialog.id + "-video").innerHTML = this.options.name;
                      Dom.get(this.configDialog.id + "-name").value = this.options.name;
 
-                     if (!this.widgets.picker)
+                     // if (!this.widgets.picker)
+                     if (true)
                      {
                         // Construct a new document picker... we need to know the nodeRef of the document library
                         // of the site that we are viewing. Make an async request to retrieve this information
@@ -400,18 +402,34 @@
                               fn: function(response)
                               {
                                  var nodeRef = response.json.container.nodeRef;
-                                 this.widgets.picker = new Alfresco.module.DocumentPicker(this.configDialog.id + "-filePicker", Alfresco.ObjectRenderer);
-                                 this.widgets.picker.setOptions(
-                                 {
-                                    multipleSelectMode: false,
-                                    mandatory: true,
-                                    parentNodeRef: nodeRef,
-                                    restrictParentNavigationToDocLib: true,
-                                    maintainAddedRemovedItems: false
-                                 });
-                                 this.widgets.picker.currentValueMeta = [];
-                                 this.widgets.picker.singleSelectedItem = null;
-                                 this.widgets.picker.onComponentsLoaded(); // Need to force the component loaded call to ensure setup gets completed.
+                                 // this.widgets.picker = new Alfresco.module.DocumentPicker(this.configDialog.id + "-filePicker", Alfresco.ObjectRenderer);
+                                 // this.widgets.picker.setOptions(
+                                 // {
+                                 //    multipleSelectMode: false,
+                                 //    mandatory: true,
+                                 //    parentNodeRef: nodeRef,
+                                 //    restrictParentNavigationToDocLib: true,
+                                 //    maintainAddedRemovedItems: false
+                                 // });
+
+                                  Dom.get(this.configDialog.id + "-nodeRef-html").value = (nodeRef && nodeRef.indexOf("://") > 0) ? nodeRef : "";
+
+                                  this.widgets.picker = new Alfresco.ObjectFinder(this.configDialog.id + "-nodeRef", this.configDialog.id + "-nodeRef-html").setOptions(
+                                     {
+                                         multipleSelectMode: false,
+                                         selectActionLabel: "Select...",
+                                         mandatory: true,
+                                         rootNode : "{companyhome}",
+                                         parentNodeRef: nodeRef ? nodeRef : "alfresco://company/home",
+                                         restrictParentNavigationToDocLib: true,
+                                         maintainAddedRemovedItems: false,
+                                         currentValue : (nodeRef && nodeRef.indexOf("://") > 0) ? nodeRef : ""
+                                     });
+
+
+                                 // this.widgets.picker.currentValueMeta = [];
+                                 // this.widgets.picker.singleSelectedItem = null;
+                                 // this.widgets.picker.onComponentsLoaded(); // Need to force the component loaded call to ensure setup gets completed.
                               },
                               scope: this
                            }

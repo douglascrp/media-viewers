@@ -8,6 +8,10 @@
     <description>An extended version of Alfresco Media viewers plugin. The project contains additional content viewers to complement the out-of-the box set supplied with Share</description>
     <version>1.1-SNAPSHOT</version>
 
+    <properties>
+        <alfresco.version>LX99-SNAPSHOT</alfresco.version>
+    </properties>
+
     <modules>
         <module>media-viewers-repo</module>
         <module>media-viewers-share</module>

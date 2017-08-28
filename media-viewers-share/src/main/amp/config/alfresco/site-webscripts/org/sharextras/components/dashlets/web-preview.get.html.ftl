@@ -1,6 +1,6 @@
 <script type="text/javascript">//<![CDATA[
 (function() {
-   var dashlet = new Alfresco.dashlet.VideoWidget("${args.htmlid}").setOptions(
+   var dashlet = new Alfresco.dashlet.DocumentViewerDashlet("${args.htmlid}").setOptions(
    {
       "componentId": "${instance.object.id}",
       "siteId": "${page.url.templateArgs.site!""}",
@@ -20,8 +20,8 @@
       }
    }, [dashlet, resizer], true);
    
-   var editDashletEvent = new YAHOO.util.CustomEvent("onDashletConfigure");
-   editDashletEvent.subscribe(dashlet.onConfigVideoClick, dashlet, true);
+   var configureDashletEvent = new YAHOO.util.CustomEvent("onDashletConfigure");
+   configureDashletEvent.subscribe(dashlet.onConfigDashletClick, dashlet, true);
 
    new Alfresco.widget.DashletTitleBarActions("${args.htmlid}").setOptions(
    {
@@ -30,7 +30,7 @@
 <#if userIsSiteManager>
          {
             cssClass: "edit",
-            eventOnClick: editDashletEvent,
+            eventOnClick: configureDashletEvent,
             tooltip: "${msg("dashlet.edit.tooltip")?js_string}"
          },
 </#if>
@@ -47,7 +47,14 @@
 })();
 //]]></script>
 <div class="dashlet video">
-   <div class="title" id="${args.htmlid}-title"><#if node??><a href="${url.context}/page/site/${page.url.templateArgs.site!''}/document-details?nodeRef=${args.nodeRef!''}">${args.name}</a><#else><#if args.name?exists>${args.name}<#else>${msg("header.video")}</#if></#if></div>
+   <div class="title" id="${args.htmlid}-title">
+   <#if node??>
+       <a href="${url.context}/page/site/${page.url.templateArgs.site!''}/document-details?nodeRef=${args.nodeRef!''}">${args.name}</a>
+   <#else>
+      <#if args.name?exists>${args.name}<#else>${msg("header.video")}</#if>
+   </#if>
+
+   </div>
    <div class="body" id="${args.htmlid}-body" style="height: ${args.height!400}px;">
       <div class="msg dashlet-padding video-widget-msg" id="${args.htmlid}-msg"></div>
       <div class="video-preview" id="${args.htmlid}-preview"></div>
