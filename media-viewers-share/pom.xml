@@ -3,15 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>se.loftux.extensions.mediaviewers</groupId>
     <artifactId>media-viewers-share</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2.0</version>
     <name>media-viewers-share AMP project</name>
     <packaging>amp</packaging>
     <description>Manages the lifecycle of the media-viewers-share AMP (Alfresco Module Package)</description>
 
     <parent>
-        <groupId>org.alfresco.maven</groupId>
-        <artifactId>alfresco-sdk-parent</artifactId>
-        <version>2.1.1</version>
+        <groupId>se.loftux.extensions.mediaviewers</groupId>
+        <artifactId>media-viewers</artifactId>
+        <version>1.2.0</version>
     </parent>
 
     <!-- 
@@ -20,6 +20,9 @@
         For more available properties see the alfresco-sdk-parent POM.
        -->
     <properties>
+
+        <alfresco.version>LX100</alfresco.version>
+        <dependency.surf.version>6.11</dependency.surf.version>
         <!-- The following are default values for data location and Alfresco version.
              Uncomment if you need to change
         <alfresco.version>${alfresco.community.default.version}</alfresco.version> -->
@@ -60,6 +63,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.alfresco.surf</groupId>
+                <artifactId>spring-surf</artifactId>
+                <version>${dependency.surf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco.surf</groupId>
+                <artifactId>spring-surf-api</artifactId>
+                <version>${dependency.surf.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -73,7 +86,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.extensions.surf</groupId>
+            <groupId>org.alfresco.surf</groupId>
             <artifactId>spring-surf-api</artifactId>
             <scope>provided</scope>
         </dependency>

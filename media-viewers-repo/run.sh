@@ -8,4 +8,4 @@ if [ ! -f $springloadedfile ]; then
 mvn validate -Psetup
 fi
 
-MAVEN_OPTS="-javaagent:$springloadedfile -noverify -Xms256m -Xmx2G" mvn integration-test -Pamp-to-war
+MAVEN_OPTS="-Xms256m -Xmx2G" mvn integration-test -Pamp-to-war,\!enforce-sdk-rules

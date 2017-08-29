@@ -1,3 +1,28 @@
-# Ignore build directory
+*.tree
+*.class
+.project
+# Package Files #
+*.war
+*.ear
 build
-/target
+
+target
+alf_data
+.settings
+alf_data_dev
+**/overlays/**
+**/solr_home/**
+
+#Log files
+alfresco.log*
+solr.log*
+share.log*
+
+# Idea IntelliJ
+**/.idea/libraries
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+.idea
+*.iml
+
+*.eml

@@ -6,10 +6,17 @@
     <packaging>pom</packaging>
     <name>Loftux Media Viewers</name>
     <description>An extended version of Alfresco Media viewers plugin. The project contains additional content viewers to complement the out-of-the box set supplied with Share</description>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2.0</version>
+
+    <parent>
+        <groupId>org.alfresco.maven</groupId>
+        <artifactId>alfresco-sdk-parent</artifactId>
+        <version>2.2.0</version>
+    </parent>
 
     <properties>
-        <alfresco.version>LX99-SNAPSHOT</alfresco.version>
+        <alfresco.version>LX100</alfresco.version>
+
     </properties>
 
     <modules>
@@ -26,5 +33,33 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- This will import the dependencyManagement for all artifacts in the selected Alfresco plaftorm
+                 (see http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies)
+                 NOTE: You still need to define dependencies in your POM, but you can omit version as it's enforced by this dependencyManagement.
+                 NOTE: It defaults to the latest version this SDK pom has been tested with, but alfresco version can/should be overridden in your project's pom
+             -->
+            <dependency>
+                <groupId>${alfresco.groupId}</groupId>
+                <artifactId>alfresco-platform-distribution</artifactId>
+                <version>${alfresco.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco.surf</groupId>
+                <artifactId>spring-surf</artifactId>
+                <version>${dependency.surf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.alfresco.surf</groupId>
+                <artifactId>spring-surf-api</artifactId>
+                <version>${dependency.surf.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>

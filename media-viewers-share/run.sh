@@ -7,4 +7,4 @@ if [ ! -f $springloadedfile ]; then
 mvn validate -Psetup
 fi
 
-MAVEN_OPTS="-javaagent:$springloadedfile -noverify" mvn integration-test -Pamp-to-war
+MAVEN_OPTS="-javaagent:$springloadedfile -noverify" mvn integration-test -Pamp-to-war,\!enforce-sdk-rules
