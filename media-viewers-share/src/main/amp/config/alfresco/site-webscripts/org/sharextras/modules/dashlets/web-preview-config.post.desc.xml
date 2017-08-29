@@ -1,0 +1,7 @@
+<webscript>
+    <shortname>Web Preview Config post</shortname>
+    <description>Configuration dialog for Web Preview dashlet</description>
+    <url>/modules/web-preview-dahslet/config/{componentId}</url>
+    <format default="json">argument</format>
+    <authentication>user</authentication>
+</webscript>

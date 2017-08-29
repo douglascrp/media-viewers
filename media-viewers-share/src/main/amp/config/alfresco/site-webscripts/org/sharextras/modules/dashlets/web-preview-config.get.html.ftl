@@ -1,8 +1,6 @@
 <#assign el=args.htmlid?html>
-
-<#--Picker Macro for content goes here.-->
 <#macro renderPickerHTML controlId>
-   <#assign pickerId = controlId + "-picker">
+    <#assign pickerId = controlId + "-picker">
 <div id="${pickerId}" class="picker yui-panel">
     <div id="${pickerId}-head" class="hd">${msg("form.control.object-picker.header")}</div>
 
@@ -27,7 +25,7 @@
         <div class="yui-g">
             <div id="${pickerId}-left" class="yui-u first panel-left">
                 <div id="${pickerId}-results" class="picker-items">
-                   <#nested>
+                    <#nested>
                 </div>
             </div>
             <div id="${pickerId}-right" class="yui-u panel-right">
@@ -50,36 +48,35 @@
    <div class="bd">
       <form id="${args.htmlid}-form" action="" method="POST">
 
-          <#--legacy browse button-->
-          <#--<div class="yui-gd">-->
-            <#--<div class="yui-u first"><label for="${args.htmlid}-video">${msg("label.video")}:</label></div>-->
-            <#--<div class="yui-u" >-->
-               <#--<span id="${args.htmlid}-video" class="video-name"></span>-->
-               <#--<div id="${args.htmlid}-filePicker">-->
-                  <#--<button type="button" name="-" id="${args.htmlid}-filePicker-showPicker-button">${msg("label.browse")}</button>-->
-               <#--</div>-->
-               <#--<input type="hidden" name="pathField" id="${args.htmlid}-pathField" />-->
-               <#--<input type="hidden" name="name" id="${args.htmlid}-name" />-->
-            <#--</div>-->
-         <#--</div>-->
-
-          <#--contentNodeRef picker-->
-          <div class="form-field">
-            <#assign controlId = el +"-nodeRef">
-              <label for="${controlId}">${msg("label.video")} <span class="mandatory-indicator">*</span></label>
-              <div id="${controlId}" class="object-finder">
-                  <div id="${controlId}-currentValueDisplay" class="current-values"></div>
-                  <input type="hidden" id="${controlId}-html" name="nodeRef" value="" />
-                  <div id="${controlId}-itemGroupActions" class="show-picker"></div>
-                    <@renderPickerHTML controlId />
+          <p>
+              <div class="form-field">
+                  <label for="${el}-docLinkTitle">${msg("label.title")}</label>
+                  <input id="${el}-docLinkTitle" type="text" name="docLinkTitle" tabindex="0" value="${(docLinkTitle!"")?html}" maxlength="256"/>&nbsp;*
               </div>
-          </div>
+          </p>
+          <p>
+              <div class="form-field">
+              <#assign controlId = el +"-nodeRef">
+                  <label for="${controlId}">${msg("label.document.display")}: <span class="mandatory-indicator">*</span></label>
+
+                  <div id="${controlId}" class="object-finder">
+
+                      <div id="${controlId}-currentValueDisplay" class="current-values"></div>
+
+                      <input type="hidden" id="${controlId}-html" name="nodeRef" value="" />
+                      <div id="${controlId}-itemGroupActions" class="show-picker"></div>
+
+                  <@renderPickerHTML controlId />
+
+                  </div>
+              </div>
+          </p>
 
 
-         <div class="bdft">
-            <input type="submit" id="${args.htmlid}-ok" value="${msg("button.ok")}" />
-            <input type="button" id="${args.htmlid}-cancel" value="${msg("button.cancel")}" />
-         </div>
+              <div class="bdft">
+                  <input type="submit" id="${el}-ok" value="${msg("button.ok")}" tabindex="0" />
+                  <input type="button" id="${el}-cancel" value="${msg("button.cancel")}" tabindex="0" />
+              </div>
       </form>
    </div>
 </div>

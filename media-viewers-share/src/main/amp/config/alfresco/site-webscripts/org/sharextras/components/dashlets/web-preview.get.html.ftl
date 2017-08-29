@@ -1,62 +1,70 @@
-<script type="text/javascript">//<![CDATA[
-(function() {
-   var dashlet = new Alfresco.dashlet.DocumentViewerDashlet("${args.htmlid}").setOptions(
-   {
-      "componentId": "${instance.object.id}",
-      "siteId": "${page.url.templateArgs.site!""}",
-      "nodeRef": "<#if args.nodeRef?exists>${args.nodeRef}<#else></#if>",
-      "name": "<#if args.name?exists>${args.name}<#else></#if>"
-   }).setMessages(${messages});
-   var resizer = new Alfresco.widget.DashletResizer("${args.htmlid}", "${instance.object.id}");
-   // Add end resize event handler
-   var timer = YAHOO.lang.later(1000, this, function(dashlet, resizer) {
-      if (resizer.widgets.resizer)
-      {
-         resizer.widgets.resizer.on("endResize", function(eventTarget)
-         {
-            dashlet.onEndResize(eventTarget.height);
-         }, dashlet, true);
-         timer.cancel();
-      }
-   }, [dashlet, resizer], true);
-   
-   var configureDashletEvent = new YAHOO.util.CustomEvent("onDashletConfigure");
-   configureDashletEvent.subscribe(dashlet.onConfigDashletClick, dashlet, true);
+<#assign el=args.htmlid?html>
 
-   new Alfresco.widget.DashletTitleBarActions("${args.htmlid}").setOptions(
-   {
-      actions:
-      [
-<#if userIsSiteManager>
-         {
-            cssClass: "edit",
-            eventOnClick: configureDashletEvent,
-            tooltip: "${msg("dashlet.edit.tooltip")?js_string}"
-         },
-</#if>
-         {
-            cssClass: "help",
-            bubbleOnClick:
-            {
-               message: "${msg("dashlet.help")?js_string}"
-            },
-            tooltip: "${msg("dashlet.help.tooltip")?js_string}"
-         }
-      ]
-   });
-})();
-//]]></script>
-<div class="dashlet video">
-   <div class="title" id="${args.htmlid}-title">
-   <#if node??>
-       <a href="${url.context}/page/site/${page.url.templateArgs.site!''}/document-details?nodeRef=${args.nodeRef!''}">${args.name}</a>
-   <#else>
-      <#if args.name?exists>${args.name}<#else>${msg("header.video")}</#if>
-   </#if>
+<@markup id="css" >
+   <#include "../../../alfresco/components/preview/include/web-preview-css-dependencies.lib.ftl" />
+   <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/dashlets/web-preview.css" group="${dependencyGroup}"/>
+   <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/components/object-finder/object-finder.css" group="${dependencyGroup}" />
 
+    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/FLVPlayer.css" group="${dependencyGroup}" />
+    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/MP3Player.css" group="${dependencyGroup}" />
+    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/Prettify.css" group="${dependencyGroup}" />
+    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/WebODF.css" group="${dependencyGroup}" />
+    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/viewer-common.css" group="${dependencyGroup}" />
+
+
+</@>
+
+<@markup id="js" >
+   <#include "../../../alfresco/components/preview/include/web-preview-js-dependencies.lib.ftl" />
+   <@script type="text/javascript" src="${page.url.context}/res/extras/components/dashlets/web-preview.js" group="${dependencyGroup}"></@script>
+   <@script type="text/javascript" src="${page.url.context}/res/modules/simple-dialog.js" group="${dependencyGroup}"></@script>
+   <@script type="text/javascript" src="${url.context}/res/components/common/common-component-style-filter-chain.js" group="${dependencyGroup}"/>
+   <@script type="text/javascript" src="${url.context}/res/components/object-finder/object-finder.js" group="${dependencyGroup}"/>
+
+    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/FLVPlayer.js" group="${dependencyGroup}"/>
+    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/MP3Player.js" group="${dependencyGroup}"/>
+    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/Prettify.js" group="${dependencyGroup}"/>
+    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/WebODF.js" group="${dependencyGroup}"/>
+    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/web-preview-extend.js" group="${dependencyGroup}"/>
+
+</@>
+
+<@markup id="widgets">
+   <#assign id=el?replace("-", "_")>
+   <@inlineScript group="${dependencyGroup}">
+   var editDocLinkEvent${id} = new YAHOO.util.CustomEvent("onDashletConfigure");
+   </@>
+   <@createWidgets group="${dependencyGroup}"/>
+   <@inlineScript group="${dependencyGroup}">
+   editDocLinkEvent${id}.subscribe(DocumentViewerDashlet.onConfigDashletClick, DocumentViewerDashlet, true);
+   </@>
+</@>
+
+<@markup id="html">
+   <@uniqueIdDiv>
+      <#if node??>
+         <#assign el=args.htmlid?html>
+      <div id="${el}-body" class="web-preview">
+          <div id="${el}-previewer-div" class="previewer">
+              <div class="message"></div>
+          </div>
+      </div>
+      </#if>
+
+   <div class="dashlet video">
+       <div class="title" id="${args.htmlid}-title">
+          <#if node??>
+              <a href="${url.context}/page/site/${page.url.templateArgs.site!''}/document-details?nodeRef=${args.nodeRef!''}">${args.name}</a>
+          <#else>
+             <#if args.name?exists>${args.name}<#else>${msg("header.video")}</#if>
+          </#if>
+
+       </div>
+       <div class="body" id="${args.htmlid}-body" style="height: ${args.height!400}px;">
+           <div class="msg dashlet-padding video-widget-msg" id="${args.htmlid}-msg"></div>
+           <div class="video-preview" id="${args.htmlid}-preview"></div>
+       </div>
    </div>
-   <div class="body" id="${args.htmlid}-body" style="height: ${args.height!400}px;">
-      <div class="msg dashlet-padding video-widget-msg" id="${args.htmlid}-msg"></div>
-      <div class="video-preview" id="${args.htmlid}-preview"></div>
-   </div>
-</div>
+   </@>
+</@>
+

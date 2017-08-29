@@ -67,7 +67,6 @@ function main()
       useMessages: false
    };
 
-
    var actions = [];
    if (model.userIsSiteManager)
    {
@@ -81,16 +80,6 @@ function main()
             tooltip: msg.get("dashlet.edit.tooltip")
          });
    }
-
-   actions.push(
-      {
-         cssClass: "help",
-         bubbleOnClick:
-            {
-               message: msg.get("dashlet.help")
-            },
-         tooltip: msg.get("dashlet.help.tooltip")
-      });
 
 
    var dashletTitleBarActions = {
