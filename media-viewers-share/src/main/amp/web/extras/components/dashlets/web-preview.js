@@ -155,7 +155,7 @@
       {
           if (this.options.nodeRef != "" && this.options.title != "")
           {
-              this.titleEl.innerHTML = "<a href=\"" + Alfresco.constants.URL_PAGECONTEXT + 
+              this.titleEl.innerHTML = "<a class=\"title-link\" href=\"" + Alfresco.constants.URL_PAGECONTEXT +
                   "site/" + this.options.siteId + "/document-details?nodeRef=" + this.options.nodeRef + "\">" +
                   this.options.title + "</a>";
           }
