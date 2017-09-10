@@ -1,6 +1,0 @@
-<webscript>
-    <shortname>Document Viewer2</shortname>
-    <description>Displays a selected document on the dashboard</description>
-    <family>site-dashlet</family>
-    <url>/components/dashlets/web-preview2</url>
-</webscript>
