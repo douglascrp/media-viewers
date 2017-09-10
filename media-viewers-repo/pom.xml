@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>se.loftux.extensions.mediaviewers</groupId>
     <artifactId>media-viewers-repo</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <name>media-viewers-repo Repository AMP project</name>
     <packaging>amp</packaging>
     <description>Manages the lifecycle of the media-viewers-repo Repository AMP (Alfresco Module Package)</description>
