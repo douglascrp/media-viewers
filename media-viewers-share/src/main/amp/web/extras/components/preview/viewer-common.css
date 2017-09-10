@@ -1,17 +1,3 @@
-.web-preview .PdfJs
-{
-   height: 450px;
-}
-.web-preview .PdfJs iframe
-{
-   max-height: 100%;
-   max-width: 100%;
-   overflow: auto;
-   width:100%;
-   /* Height is view area above minus control bar height */ 
-   height:430px;
-   background-color: #FFFFFF;
-}
 
 .web-preview .Embed
 {
@@ -90,19 +76,13 @@
 
 /* Overrides for filmstrip view */
 .alf-filmstrip .web-preview .previewer.Embed,
-.alf-filmstrip .web-preview .previewer.PdfJs,
 .alf-filmstrip .web-preview .previewer.Prettify,
 .alf-filmstrip .web-preview .previewer.WebODF
 {
    margin-top: 47px;
 }
-/* Ensure that Maximise view still works */
-.alf-filmstrip .web-preview .previewer.PdfJs.fullPage
-{
-   margin-top: auto;
-}
+
 .alf-filmstrip-content-only .web-preview .previewer.Embed,
-.alf-filmstrip-content-only .web-preview .previewer.PdfJs,
 .alf-filmstrip-content-only .web-preview .previewer.Prettify,
 .alf-filmstrip-content-only .web-preview .previewer.WebODF
 {
