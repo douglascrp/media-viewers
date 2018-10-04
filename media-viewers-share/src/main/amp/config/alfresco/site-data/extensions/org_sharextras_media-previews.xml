@@ -22,6 +22,26 @@
             the web previewer plugins
         -->
         <module>
+            <id>PDF.js Original</id>
+            <version>${noSnapshotVersion}</version>
+            <customizations>
+                <customization>
+                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
+                    <sourcePackageRoot>org.sharextras.customization.media-previews.pdfjsraw-config</sourcePackageRoot>
+                </customization>
+                <customization>
+                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
+                    <sourcePackageRoot>org.sharextras.customization.media-previews.pdfjsraw</sourcePackageRoot>
+                </customization>
+                <customization>
+                    <targetPackageRoot>org.alfresco.components.documentlibrary</targetPackageRoot>
+                    <sourcePackageRoot>org.sharextras.customization.media-previews.pdfjsraw-viewrender</sourcePackageRoot>
+                </customization>
+            </customizations>
+            <auto-deploy>false</auto-deploy>
+        </module>
+
+        <module>
             <id>FLVPlayer Viewer</id>
             <version>${noSnapshotVersion}</version>
             <customizations>

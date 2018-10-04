@@ -1,0 +1,5 @@
+<webscript>
+    <shortname>PDF Preview</shortname>
+    <description>PDF JS Viewer</description>
+    <url>/components/preview/pdf-preview</url>
+</webscript>

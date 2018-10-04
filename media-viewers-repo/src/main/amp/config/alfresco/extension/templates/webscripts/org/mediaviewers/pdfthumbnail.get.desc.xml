@@ -1,0 +1,12 @@
+<webscript kind="org.alfresco.repository.content.stream">
+    <shortname>PDF Thumbnail</shortname>
+    <description>
+        Get a PDF thumbnail for a content resource. Intended use is with the PDF.js viewer.<br/>
+        This will only fetch a PDF thumbnail, and force create.<br/>
+        The property {lastmodified} is not used in the script, but must be supplied to make url unique and avoid caching.
+    </description>
+    <url>/mediaviewers/pdfthumbnail/{store_type}/{store_id}/{id}/{lastmodified}/{thumbnailname}</url>
+    <transaction allow="readonly">required</transaction>
+    <format default="">argument</format>
+    <authentication>user</authentication>
+</webscript>
