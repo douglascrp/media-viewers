@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>se.loftux.extensions.mediaviewers</groupId>
     <artifactId>media-viewers-share</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3-SNAPSHOT</version>
     <name>media-viewers-share AMP project</name>
     <packaging>amp</packaging>
     <description>Manages the lifecycle of the media-viewers-share AMP (Alfresco Module Package)</description>
@@ -11,7 +11,7 @@
     <parent>
         <groupId>se.loftux.extensions.mediaviewers</groupId>
         <artifactId>media-viewers</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.3-SNAPSHOT</version>
     </parent>
 
     <!-- 
@@ -124,11 +124,14 @@
                             <nonFilteredFileExtension>woff</nonFilteredFileExtension>
                             <nonFilteredFileExtension>svg</nonFilteredFileExtension>
                             <nonFilteredFileExtension>jar</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>cur</nonFilteredFileExtension>
 <!--
                             <nonFilteredFileExtension>xml</nonFilteredFileExtension>
 -->
                             <nonFilteredFileExtension>less</nonFilteredFileExtension>
                             <nonFilteredFileExtension>psd</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>bcmap</nonFilteredFileExtension>
+                            <nonFilteredFileExtension>map</nonFilteredFileExtension>
                         </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
@@ -140,6 +143,30 @@
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <id>compress-js</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/webscripts/**</exclude>
+                                <exclude>**/site-webscripts/**</exclude>
+                                <exclude>**/*.lib.js</exclude>
+                                <exclude>**/PdfJsRaw/*.js</exclude>
+                                <exclude>**/*.css</exclude>
+                            </excludes>
+                            <sourceDirectory>src/main/amp</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/amp</outputDirectory>
+                            <!-- Exclude resources so we don't get an extra dir structure with -min.js files -->
+                            <excludeResources>true</excludeResources>
+                            <jswarn>false</jswarn>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
