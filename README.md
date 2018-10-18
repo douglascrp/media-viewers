@@ -7,6 +7,10 @@ This add-on project for Alfresco Share provides a number of content viewers to c
 
 ##Version and Updates
 
+###1.3.1
+- Updated pdf.js lib.
+- Moved the configuration odf PDF js Original to its own deploy package.
+
 ###1.3.0
 - Custom version that brings back the iframe based version of PDF.js.
 - Flash bashed viewers removed.
