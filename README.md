@@ -45,14 +45,6 @@ project to provide an in-line browser-based view with syntax highlighting.
 
 ![Prettify Viewer](screenshots/prettify-js-20.png)
 
-#### WebODF
-
-WebODF is an EXPERIMENTAL viewer which uses the AGPL-licensed [WebODF](http://www.webodf.org/)
-project to display ODF content directly in the web browser.
-
-WebODF cannot be distributed with the add-in itself, so in order to use it you must also
-download the latest JAR file from the supporting [share-webodf project](https://github.com/wabson/webodf-share/downloads) and
-install it in the same way as the main media-viewers JAR file.
 
 ### Document Viewer Dashlet
 
@@ -121,9 +113,7 @@ The following modules will import the dependencies for the different viewers. Yo
 
  * PdfJs Viewer
  * Embed Viewer
- * FLVPlayer Viewer
  * Prettify Viewer
- * WebODF Viewer (Experimental)
 
 The final step to configure the exact content types which the viewer should be used for varies between Alfresco 4.0/4.1 and 4.2, so please follow the correct instructions for your Alfresco version.
 
