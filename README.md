@@ -32,13 +32,6 @@ The viewer supports a number of features not directly supported by the Flash doc
 
 ![PdfJs Viewer](screenshots/pdfjs-pres-20.png)
 
-### FLVPlayer and MP3Player
-
-FLVPlayer and MP3Player display compatible audio and video files respectively, within the web-browser using the open source [FLV Player](http://flv-player.net/) and [MP3 Player](http://flash-mp3-player.net/) media players by [neolao](http://www.neolao.com/). Based on the content's MIME type, the updated component automatically chooses the appropriate previewer to use.
-
-While similar to the Flash players provided by Share out-of-the-box, these implementations allow advanced customization of the player via configuration and if [FFmpeg](http://ffmpeg.org/) is installed, will fire up a transformation to allow viewing of non-H264/FLV video and non-MP3 audio. The user is informed when conversion is in progress and the screen automatically updates when the content can
-be viewed.
-
 #### Embed
 
 Embed uses an in-line iFrame to embed the content itself directly inside the web page. It is suitable for use with content types that can be viewed directly within the web browser such as plain text and PDF, with the Chrome or Acrobat plugins installed. Again, this can be used to avoid the use of
@@ -120,7 +113,7 @@ Run individiual components using `run.sh` or `run.bat` files available within in
 Configuration
 -------------
 
-No additional configuration is required for the 0.x/1.x version of the add-on in Alfresco 3, beyond the optional FFmpeg installation documented in _[Installation](#installation)_, above (required if you wish to use audio/video renditions with the FLVPlayer and MP3Player plugins).
+No additional configuration is required for the 0.x/1.x version of the add-on in Alfresco 3, beyond the optional FFmpeg installation documented in _[Installation](#installation)_, above (required if you wish to use audio/video renditions with the FLVPlayer plugins).
 
 If you are using Alfresco 4, you must enable the correct module in Share's [Module Deployment console](http://code.google.com/p/share-extras/wiki/ModuleDeployment), which can be accessed by navigating to `http://hostname:port/share/page/modules/deploy` on your Alfresco server.
 
@@ -129,7 +122,6 @@ The following modules will import the dependencies for the different viewers. Yo
  * PdfJs Viewer
  * Embed Viewer
  * FLVPlayer Viewer
- * MP3Player Viewer
  * Prettify Viewer
  * WebODF Viewer (Experimental)
 

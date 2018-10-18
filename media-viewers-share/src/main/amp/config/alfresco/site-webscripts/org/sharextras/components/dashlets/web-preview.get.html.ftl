@@ -6,7 +6,6 @@
    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/components/object-finder/object-finder.css" group="${dependencyGroup}" />
 
     <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/FLVPlayer.css" group="${dependencyGroup}" />
-    <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/MP3Player.css" group="${dependencyGroup}" />
     <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/Prettify.css" group="${dependencyGroup}" />
     <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/WebODF.css" group="${dependencyGroup}" />
     <@link rel="stylesheet" type="text/css" href="${page.url.context}/res/extras/components/preview/viewer-common.css" group="${dependencyGroup}" />
@@ -22,7 +21,6 @@
    <@script type="text/javascript" src="${url.context}/res/components/object-finder/object-finder.js" group="${dependencyGroup}"/>
 
     <@script type="text/javascript" src="${url.context}/res/extras/components/preview/FLVPlayer.js" group="${dependencyGroup}"/>
-    <@script type="text/javascript" src="${url.context}/res/extras/components/preview/MP3Player.js" group="${dependencyGroup}"/>
     <@script type="text/javascript" src="${url.context}/res/extras/components/preview/Prettify.js" group="${dependencyGroup}"/>
     <@script type="text/javascript" src="${url.context}/res/extras/components/preview/WebODF.js" group="${dependencyGroup}"/>
     <@script type="text/javascript" src="${url.context}/res/extras/components/preview/web-preview-extend.js" group="${dependencyGroup}"/>

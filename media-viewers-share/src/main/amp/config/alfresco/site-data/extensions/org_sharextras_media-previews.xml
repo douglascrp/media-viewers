@@ -68,34 +68,6 @@
             </customizations>
             <auto-deploy>false</auto-deploy>
         </module>
-        
-        <module>
-            <id>MP3Player Viewer</id>
-            <version>${noSnapshotVersion}</version>
-            <customizations>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.mp3player</sourcePackageRoot>
-                </customization>
-            </customizations>
-            <auto-deploy>false</auto-deploy>
-        </module>
-        
-        <module>
-            <id>MP3Player Configuration</id>
-            <version>${noSnapshotVersion}</version>
-            <customizations>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.mp3player-config</sourcePackageRoot>
-                </customization>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.documentlibrary</targetPackageRoot>
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.mp3player-viewrender</sourcePackageRoot>
-                </customization>
-            </customizations>
-            <auto-deploy>false</auto-deploy>
-        </module>
 
         <module>
             <id>GIF Player</id>
