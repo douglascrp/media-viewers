@@ -144,7 +144,7 @@ Alfresco.WebPreview.prototype.Plugins.Embed.prototype = {
 		// Set the iframe
 		displaysource += '<iframe id="' + this.wp.id + '-embed" name="Embed" src="' + url
 				+ '" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0"  style="height:' + (previewHeight - 10).toString()
-				+ 'px; width:100%"></iframe>';
+				+ 'px; width:100% height:"' + previewHeight +'"></iframe>';
 
       Alfresco.util.YUILoaderHelper.require([ "tabview" ], this.onComponentsLoaded, this);
       Alfresco.util.YUILoaderHelper.loadComponents();
