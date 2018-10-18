@@ -7,6 +7,11 @@ This add-on project for Alfresco Share provides a number of content viewers to c
 
 ##Version and Updates
 
+###1.3.0
+- Custom version that brings back the iframe based version of PDF.js.
+- Flash bashed viewers removed.
+- FFmpeg support disabled for now
+
 ###1.1.1 (6 October 2016)
 -  Adds support for inline viewing of animated GIF files.
 
@@ -73,6 +78,8 @@ Copy the JAR file into the `tomcat/shared/lib` folder of your Alfresco installat
 See [Configuration](#Configuration) below, for instructions on how to enable the viewers in Share.
 
 ### FFmpeg Installation (optional; only required for custom audio/video players)
+
+**FFmpeg support Disabled in this version**
 
 The supplied Spring configuration extends the repository thumbnailing capabilities to support H264/FLV thumbnails for video content and MP3 thumbnails for audio content, both using FFmpeg, and PDF thumbnails for content such as Microsoft Word and Powerpoint files. PDF thumbnails can be generated using the default repository transformers,
 but a custom transformer is supplied to enable the FFmpeg transformations.
@@ -175,18 +182,6 @@ This should force the thumbnails to be generated syncronously, and a stack trace
 Known Issues
 ------------
 
-* Internet Explorer is only supported in version 10 and greater due to performance problems in that browser. The Embed viewer can be used instead, otherwise rendering will fall back to the out-of-the-box Flash viewer.
-
-* In versions 3.3, 3.4.a, 3.4.b and 3.4.c, the video player only supports previews of MP4 and FLV content, due to
-  a bug whereby the thumbnail service [cannot produce renditions using a RuntimeExec transformer](https://issues.alfresco.com/jira/browse/ALF-4214).
-  The workaround for this is to apply the fix in the JIRA issue to patch your
-  own `alfresco-repository.jar`. This is fixed in version 3.4.d.
-
-* Prior to Alfresco Community 3.4.b, adding the additional thumbnail definitions to the thumbnail registry required
-  overriding the entire thumbnailRegistry bean. The supplied Spring configuration still uses this old method for now
-  in order to support the widest range of versions, but if this causes you problems you can use the new
-  `org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegistrer` bean instead
-  ([example config](http://fisheye.alfresco.com/browse/alfresco_open_mirror/alfresco/HEAD/root/projects/repository/config/alfresco/extension/video-transformation-context.xml.sample?r=22817))
 
 ## Authors
 * Peter Lofgren ([Loftux AB](https://loftux.com?ref=mediaviewers-p))
