@@ -18,17 +18,6 @@
         </property>
     </bean>
 
-    <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.flv"
-            parent="org_sharextras_media-viewers_thumbnail.transformationOptions">
-        <!--
-        <property name="propertyValues">
-            <props merge="true">
-                <prop key="outfile_opts">-ar 44100</prop>
-            </props>
-        </property>
-        -->
-    </bean>
-
     <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4"
             parent="org_sharextras_media-viewers_thumbnail.transformationOptions">
         <!--
@@ -49,20 +38,6 @@
             </props>
         </property>
         -->
-    </bean>
-
-    <!-- FLV thumbnail options -->
-    <bean id="org_sharextras_media-viewers_thumbnail.register.flvpreview" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">
-        <property name="thumbnailRegistry" ref="thumbnailRegistry" />
-        <property name="thumbnailDefinition">
-            <!-- FLV preview thumbnail options -->
-            <bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
-                <property name="name" value="flvpreview" />
-                <property name="mimetype" value="video/x-flv"/>
-                <property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.flv" />
-                <property name="runAs" value="System"/>
-            </bean>
-        </property>
     </bean>
 
     <!-- H264 thumbnail options -->

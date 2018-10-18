@@ -113,7 +113,7 @@ Run individiual components using `run.sh` or `run.bat` files available within in
 Configuration
 -------------
 
-No additional configuration is required for the 0.x/1.x version of the add-on in Alfresco 3, beyond the optional FFmpeg installation documented in _[Installation](#installation)_, above (required if you wish to use audio/video renditions with the FLVPlayer plugins).
+No additional configuration is required for the 0.x/1.x version of the add-on in Alfresco 3, beyond the optional FFmpeg installation documented in _[Installation](#installation)_, above (required if you wish to use audio/video renditions plugins).
 
 If you are using Alfresco 4, you must enable the correct module in Share's [Module Deployment console](http://code.google.com/p/share-extras/wiki/ModuleDeployment), which can be accessed by navigating to `http://hostname:port/share/page/modules/deploy` on your Alfresco server.
 

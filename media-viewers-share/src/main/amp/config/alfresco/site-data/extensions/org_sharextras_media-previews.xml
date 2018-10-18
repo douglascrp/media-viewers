@@ -42,34 +42,6 @@
         </module>
 
         <module>
-            <id>FLVPlayer Viewer</id>
-            <version>${noSnapshotVersion}</version>
-            <customizations>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>              
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.flvplayer</sourcePackageRoot>
-                </customization>
-            </customizations>
-            <auto-deploy>false</auto-deploy>
-        </module>
-        
-        <module>
-            <id>FLVPlayer Configuration</id>
-            <version>${noSnapshotVersion}</version>
-            <customizations>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>              
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.flvplayer-config</sourcePackageRoot>
-                </customization>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.documentlibrary</targetPackageRoot>
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.flvplayer-viewrender</sourcePackageRoot>
-                </customization>
-            </customizations>
-            <auto-deploy>false</auto-deploy>
-        </module>
-
-        <module>
             <id>GIF Player</id>
             <version>${noSnapshotVersion}</version>
             <customizations>
