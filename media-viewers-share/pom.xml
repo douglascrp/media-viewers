@@ -21,7 +21,7 @@
        -->
     <properties>
 
-        <alfresco.version>LX100</alfresco.version>
+        <alfresco.version>${alfresco.repo.version}</alfresco.version>
         <dependency.surf.version>6.11</dependency.surf.version>
         <!-- The following are default values for data location and Alfresco version.
              Uncomment if you need to change

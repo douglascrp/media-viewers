@@ -21,7 +21,7 @@
        -->
     <properties>
 
-        <alfresco.version>LX100</alfresco.version>
+        <alfresco.version>${alfresco.share.version}</alfresco.version>
         <!-- The following are default values for data location and Alfresco Community version.
              Uncomment if you need to change (Note. current default version for Enterprise edition is 5.0.1)
           <alfresco.version>5.0.d</alfresco.version>

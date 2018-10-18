@@ -15,7 +15,8 @@
     </parent>
 
     <properties>
-        <alfresco.version>LX100</alfresco.version>
+        <alfresco.repo.version>5.2.f</alfresco.repo.version>
+        <alfresco.share.version>5.2.f</alfresco.share.version>
 
     </properties>
 
