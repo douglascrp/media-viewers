@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.0.904';
-var pdfjsBuild = '1cfb723d';
+var pdfjsVersion = '2.0.930';
+var pdfjsBuild = 'ecbdc508';
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 var pdfjsDisplayAPI = __w_pdfjs_require__(129);
 var pdfjsDisplayTextLayer = __w_pdfjs_require__(145);
@@ -1059,6 +1059,23 @@ if (!globalScope._pdfjsCompatibilityChecked) {
       if (this.parentNode) {
         this.parentNode.removeChild(this);
       }
+    };
+  })();
+  (function checkDOMTokenListToggle() {
+    if (!hasDOM || isNodeJS()) {
+      return;
+    }
+    var div = document.createElement('div');
+    if (div.classList.toggle('test', 0) === false) {
+      return;
+    }
+    var originalDOMTokenListToggle = DOMTokenList.prototype.toggle;
+    DOMTokenList.prototype.toggle = function (token) {
+      if (arguments.length > 1) {
+        var force = !!arguments[1];
+        return this[force ? 'add' : 'remove'](token), force;
+      }
+      return originalDOMTokenListToggle(token);
     };
   })();
   (function checkStringIncludes() {
@@ -7832,11 +7849,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var DEFAULT_RANGE_CHUNK_SIZE = 65536;
 var isWorkerDisabled = false;
-var workerSrc = void 0;
-var pdfjsFilePath = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : null;
+var fallbackWorkerSrc = void 0;
 var fakeWorkerFilesLoader = null;
-var useRequireEnsure = false;
 {
+  var useRequireEnsure = false;
   if (typeof window === 'undefined') {
     isWorkerDisabled = true;
     if (typeof require.ensure === 'undefined') {
@@ -7847,20 +7863,38 @@ var useRequireEnsure = false;
     useRequireEnsure = true;
   }
   if (typeof requirejs !== 'undefined' && requirejs.toUrl) {
-    workerSrc = requirejs.toUrl('pdfjs-dist/build/pdf.worker.js');
+    fallbackWorkerSrc = requirejs.toUrl('pdfjs-dist/build/pdf.worker.js');
   }
   var dynamicLoaderSupported = typeof requirejs !== 'undefined' && requirejs.load;
-  fakeWorkerFilesLoader = useRequireEnsure ? function (callback) {
-    require.ensure([], function () {
-      var worker;
-      worker = require('./pdf.worker.js');
-      callback(worker.WorkerMessageHandler);
-    }, null, 'pdfjsWorker');
-  } : dynamicLoaderSupported ? function (callback) {
-    requirejs(['pdfjs-dist/build/pdf.worker'], function (worker) {
-      callback(worker.WorkerMessageHandler);
+  fakeWorkerFilesLoader = useRequireEnsure ? function () {
+    return new Promise(function (resolve, reject) {
+      require.ensure([], function () {
+        try {
+          var worker = void 0;
+          worker = require('./pdf.worker.js');
+          resolve(worker.WorkerMessageHandler);
+        } catch (ex) {
+          reject(ex);
+        }
+      }, reject, 'pdfjsWorker');
+    });
+  } : dynamicLoaderSupported ? function () {
+    return new Promise(function (resolve, reject) {
+      requirejs(['pdfjs-dist/build/pdf.worker'], function (worker) {
+        try {
+          resolve(worker.WorkerMessageHandler);
+        } catch (ex) {
+          reject(ex);
+        }
+      }, reject);
     });
   } : null;
+  if (!fallbackWorkerSrc && typeof document !== 'undefined') {
+    var pdfjsFilePath = document.currentScript && document.currentScript.src;
+    if (pdfjsFilePath) {
+      fallbackWorkerSrc = pdfjsFilePath.replace(/(\.(?:min\.)?js)(\?.*)?$/i, '.worker$1$2');
+    }
+  }
 }
 var createPDFNetworkStream;
 function setPDFNetworkStreamFactory(pdfNetworkStreamFactory) {
@@ -8003,7 +8037,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
   }
   return worker.messageHandler.sendWithPromise('GetDocRequest', {
     docId: docId,
-    apiVersion: '2.0.904',
+    apiVersion: '2.0.930',
     source: {
       data: source.data,
       url: source.url,
@@ -8591,19 +8625,18 @@ var PDFWorker = function PDFWorkerClosure() {
     if (_worker_options.GlobalWorkerOptions.workerSrc) {
       return _worker_options.GlobalWorkerOptions.workerSrc;
     }
-    if (typeof workerSrc !== 'undefined') {
-      return workerSrc;
-    }
-    if (pdfjsFilePath) {
-      return pdfjsFilePath.replace(/(\.(?:min\.)?js)(\?.*)?$/i, '.worker$1$2');
+    if (typeof fallbackWorkerSrc !== 'undefined') {
+      return fallbackWorkerSrc;
     }
     throw new Error('No "GlobalWorkerOptions.workerSrc" specified.');
   }
   function getMainThreadWorkerMessageHandler() {
-    if (typeof window === 'undefined') {
-      return null;
-    }
-    return window.pdfjsWorker && window.pdfjsWorker.WorkerMessageHandler;
+    try {
+      if (typeof window !== 'undefined') {
+        return window.pdfjsWorker && window.pdfjsWorker.WorkerMessageHandler;
+      }
+    } catch (ex) {}
+    return null;
   }
   var fakeWorkerFilesLoadedCapability = void 0;
   function setupFakeWorkerGlobal() {
@@ -8616,12 +8649,12 @@ var PDFWorker = function PDFWorkerClosure() {
       fakeWorkerFilesLoadedCapability.resolve(mainWorkerMessageHandler);
       return fakeWorkerFilesLoadedCapability.promise;
     }
-    var loader = fakeWorkerFilesLoader || function (callback) {
-      (0, _dom_utils.loadScript)(getWorkerSrc()).then(function () {
-        callback(window.pdfjsWorker.WorkerMessageHandler);
+    var loader = fakeWorkerFilesLoader || function () {
+      return (0, _dom_utils.loadScript)(getWorkerSrc()).then(function () {
+        return window.pdfjsWorker.WorkerMessageHandler;
       });
     };
-    loader(fakeWorkerFilesLoadedCapability.resolve);
+    loader().then(fakeWorkerFilesLoadedCapability.resolve, fakeWorkerFilesLoadedCapability.reject);
     return fakeWorkerFilesLoadedCapability.promise;
   }
   function createCDNWrapper(url) {
@@ -8772,6 +8805,8 @@ var PDFWorker = function PDFWorkerClosure() {
         var messageHandler = new _message_handler.MessageHandler(id, id + '_worker', port);
         _this7._messageHandler = messageHandler;
         _this7._readyCapability.resolve();
+      }).catch(function (reason) {
+        _this7._readyCapability.reject(new Error('Setting up fake worker failed: "' + reason.message + '".'));
       });
     },
     destroy: function PDFWorker_destroy() {
@@ -9540,8 +9575,8 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
 }();
 var version, build;
 {
-  exports.version = version = '2.0.904';
-  exports.build = build = '1cfb723d';
+  exports.version = version = '2.0.930';
+  exports.build = build = 'ecbdc508';
 }
 exports.getDocument = getDocument;
 exports.LoopbackPort = LoopbackPort;
@@ -15434,6 +15469,8 @@ var AnnotationElementFactory = function () {
           return new CircleAnnotationElement(parameters);
         case _util.AnnotationType.POLYLINE:
           return new PolylineAnnotationElement(parameters);
+        case _util.AnnotationType.INK:
+          return new InkAnnotationElement(parameters);
         case _util.AnnotationType.POLYGON:
           return new PolygonAnnotationElement(parameters);
         case _util.AnnotationType.HIGHLIGHT:
@@ -15885,7 +15922,7 @@ var PopupAnnotationElement = function (_AnnotationElement4) {
   _createClass(PopupAnnotationElement, [{
     key: 'render',
     value: function render() {
-      var IGNORE_TYPES = ['Line', 'Square', 'Circle', 'PolyLine', 'Polygon'];
+      var IGNORE_TYPES = ['Line', 'Square', 'Circle', 'PolyLine', 'Polygon', 'Ink'];
       this.container.className = 'popupAnnotation';
       if (IGNORE_TYPES.includes(this.data.parentType)) {
         return this.container;
@@ -16182,8 +16219,58 @@ var PolygonAnnotationElement = function (_PolylineAnnotationEl) {
   return PolygonAnnotationElement;
 }(PolylineAnnotationElement);
 
-var HighlightAnnotationElement = function (_AnnotationElement9) {
-  _inherits(HighlightAnnotationElement, _AnnotationElement9);
+var InkAnnotationElement = function (_AnnotationElement9) {
+  _inherits(InkAnnotationElement, _AnnotationElement9);
+
+  function InkAnnotationElement(parameters) {
+    _classCallCheck(this, InkAnnotationElement);
+
+    var isRenderable = !!(parameters.data.hasPopup || parameters.data.title || parameters.data.contents);
+
+    var _this17 = _possibleConstructorReturn(this, (InkAnnotationElement.__proto__ || Object.getPrototypeOf(InkAnnotationElement)).call(this, parameters, isRenderable, true));
+
+    _this17.containerClassName = 'inkAnnotation';
+    _this17.svgElementName = 'svg:polyline';
+    return _this17;
+  }
+
+  _createClass(InkAnnotationElement, [{
+    key: 'render',
+    value: function render() {
+      this.container.className = this.containerClassName;
+      var data = this.data;
+      var width = data.rect[2] - data.rect[0];
+      var height = data.rect[3] - data.rect[1];
+      var svg = this.svgFactory.create(width, height);
+      var inkLists = data.inkLists;
+      for (var i = 0, ii = inkLists.length; i < ii; i++) {
+        var inkList = inkLists[i];
+        var points = [];
+        for (var j = 0, jj = inkList.length; j < jj; j++) {
+          var x = inkList[j].x - data.rect[0];
+          var y = data.rect[3] - inkList[j].y;
+          points.push(x + ',' + y);
+        }
+        points = points.join(' ');
+        var borderWidth = data.borderStyle.width;
+        var polyline = this.svgFactory.createElement(this.svgElementName);
+        polyline.setAttribute('points', points);
+        polyline.setAttribute('stroke-width', borderWidth);
+        polyline.setAttribute('stroke', 'transparent');
+        polyline.setAttribute('fill', 'none');
+        this._createPopup(this.container, polyline, data);
+        svg.appendChild(polyline);
+      }
+      this.container.append(svg);
+      return this.container;
+    }
+  }]);
+
+  return InkAnnotationElement;
+}(AnnotationElement);
+
+var HighlightAnnotationElement = function (_AnnotationElement10) {
+  _inherits(HighlightAnnotationElement, _AnnotationElement10);
 
   function HighlightAnnotationElement(parameters) {
     _classCallCheck(this, HighlightAnnotationElement);
@@ -16206,8 +16293,8 @@ var HighlightAnnotationElement = function (_AnnotationElement9) {
   return HighlightAnnotationElement;
 }(AnnotationElement);
 
-var UnderlineAnnotationElement = function (_AnnotationElement10) {
-  _inherits(UnderlineAnnotationElement, _AnnotationElement10);
+var UnderlineAnnotationElement = function (_AnnotationElement11) {
+  _inherits(UnderlineAnnotationElement, _AnnotationElement11);
 
   function UnderlineAnnotationElement(parameters) {
     _classCallCheck(this, UnderlineAnnotationElement);
@@ -16230,8 +16317,8 @@ var UnderlineAnnotationElement = function (_AnnotationElement10) {
   return UnderlineAnnotationElement;
 }(AnnotationElement);
 
-var SquigglyAnnotationElement = function (_AnnotationElement11) {
-  _inherits(SquigglyAnnotationElement, _AnnotationElement11);
+var SquigglyAnnotationElement = function (_AnnotationElement12) {
+  _inherits(SquigglyAnnotationElement, _AnnotationElement12);
 
   function SquigglyAnnotationElement(parameters) {
     _classCallCheck(this, SquigglyAnnotationElement);
@@ -16254,8 +16341,8 @@ var SquigglyAnnotationElement = function (_AnnotationElement11) {
   return SquigglyAnnotationElement;
 }(AnnotationElement);
 
-var StrikeOutAnnotationElement = function (_AnnotationElement12) {
-  _inherits(StrikeOutAnnotationElement, _AnnotationElement12);
+var StrikeOutAnnotationElement = function (_AnnotationElement13) {
+  _inherits(StrikeOutAnnotationElement, _AnnotationElement13);
 
   function StrikeOutAnnotationElement(parameters) {
     _classCallCheck(this, StrikeOutAnnotationElement);
@@ -16278,8 +16365,8 @@ var StrikeOutAnnotationElement = function (_AnnotationElement12) {
   return StrikeOutAnnotationElement;
 }(AnnotationElement);
 
-var StampAnnotationElement = function (_AnnotationElement13) {
-  _inherits(StampAnnotationElement, _AnnotationElement13);
+var StampAnnotationElement = function (_AnnotationElement14) {
+  _inherits(StampAnnotationElement, _AnnotationElement14);
 
   function StampAnnotationElement(parameters) {
     _classCallCheck(this, StampAnnotationElement);
@@ -16302,29 +16389,29 @@ var StampAnnotationElement = function (_AnnotationElement13) {
   return StampAnnotationElement;
 }(AnnotationElement);
 
-var FileAttachmentAnnotationElement = function (_AnnotationElement14) {
-  _inherits(FileAttachmentAnnotationElement, _AnnotationElement14);
+var FileAttachmentAnnotationElement = function (_AnnotationElement15) {
+  _inherits(FileAttachmentAnnotationElement, _AnnotationElement15);
 
   function FileAttachmentAnnotationElement(parameters) {
     _classCallCheck(this, FileAttachmentAnnotationElement);
 
-    var _this22 = _possibleConstructorReturn(this, (FileAttachmentAnnotationElement.__proto__ || Object.getPrototypeOf(FileAttachmentAnnotationElement)).call(this, parameters, true));
+    var _this23 = _possibleConstructorReturn(this, (FileAttachmentAnnotationElement.__proto__ || Object.getPrototypeOf(FileAttachmentAnnotationElement)).call(this, parameters, true));
 
-    var _this22$data$file = _this22.data.file,
-        filename = _this22$data$file.filename,
-        content = _this22$data$file.content;
+    var _this23$data$file = _this23.data.file,
+        filename = _this23$data$file.filename,
+        content = _this23$data$file.content;
 
-    _this22.filename = (0, _dom_utils.getFilenameFromUrl)(filename);
-    _this22.content = content;
-    if (_this22.linkService.eventBus) {
-      _this22.linkService.eventBus.dispatch('fileattachmentannotation', {
-        source: _this22,
+    _this23.filename = (0, _dom_utils.getFilenameFromUrl)(filename);
+    _this23.content = content;
+    if (_this23.linkService.eventBus) {
+      _this23.linkService.eventBus.dispatch('fileattachmentannotation', {
+        source: _this23,
         id: (0, _util.stringToPDFString)(filename),
         filename: filename,
         content: content
       });
     }
-    return _this22;
+    return _this23;
   }
 
   _createClass(FileAttachmentAnnotationElement, [{
@@ -18060,6 +18147,14 @@ function validateRangeRequestCapabilities(_ref) {
     allowRangeRequests: false,
     suggestedLength: undefined
   };
+  var length = parseInt(getResponseHeader('Content-Length'), 10);
+  if (!Number.isInteger(length)) {
+    return returnValues;
+  }
+  returnValues.suggestedLength = length;
+  if (length <= 2 * rangeChunkSize) {
+    return returnValues;
+  }
   if (disableRange || !isHttp) {
     return returnValues;
   }
@@ -18068,14 +18163,6 @@ function validateRangeRequestCapabilities(_ref) {
   }
   var contentEncoding = getResponseHeader('Content-Encoding') || 'identity';
   if (contentEncoding !== 'identity') {
-    return returnValues;
-  }
-  var length = parseInt(getResponseHeader('Content-Length'), 10);
-  if (!Number.isInteger(length)) {
-    return returnValues;
-  }
-  returnValues.suggestedLength = length;
-  if (length <= 2 * rangeChunkSize) {
     return returnValues;
   }
   returnValues.allowRangeRequests = true;

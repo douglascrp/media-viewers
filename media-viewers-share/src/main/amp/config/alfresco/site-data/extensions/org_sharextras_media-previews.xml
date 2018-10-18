@@ -7,12 +7,8 @@
         -->
         <module>
             <id>PDF.js Original</id>
-            <version>${noSnapshotVersion}</version>
+            <version>${project.version}</version>
             <customizations>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.pdfjsraw-config</sourcePackageRoot>
-                </customization>
                 <customization>
                     <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
                     <sourcePackageRoot>org.sharextras.customization.media-previews.pdfjsraw</sourcePackageRoot>
@@ -25,9 +21,20 @@
             <auto-deploy>false</auto-deploy>
         </module>
 
+        <module>
+            <id>PDF.js Original Configuration</id>
+            <version>${project.version}</version>
+            <customizations>
+                <customization>
+                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
+                    <sourcePackageRoot>org.sharextras.customization.media-previews.pdfjsraw-config</sourcePackageRoot>
+                </customization>
+            </customizations>
+            <auto-deploy>false</auto-deploy>
+        </module>
 <!--        <module>
             <id>GIF Player</id>
-            <version>${noSnapshotVersion}</version>
+            <version>${project.version}</version>
             <customizations>
                 <customization>
                     <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
@@ -41,7 +48,7 @@
 
         <module>
             <id>Embed Viewer</id>
-            <version>${noSnapshotVersion}</version>
+            <version>${project.version}</version>
             <customizations>
                 <customization>
                     <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
@@ -53,7 +60,7 @@
         
         <module>
             <id>Prettify Viewer</id>
-            <version>${noSnapshotVersion}</version>
+            <version>${project.version}</version>
             <customizations>
                 <customization>
                     <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
@@ -65,7 +72,7 @@
         
         <module>
             <id>Prettify Configuration</id>
-            <version>${noSnapshotVersion}</version>
+            <version>${project.version}</version>
             <customizations>
                 <customization>
                     <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
