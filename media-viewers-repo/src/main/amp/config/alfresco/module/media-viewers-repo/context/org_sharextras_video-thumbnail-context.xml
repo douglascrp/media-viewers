@@ -10,92 +10,92 @@
         Instead it is necessary to override the RuntimeExec beans themselves which are used by the transformers.
     -->
 
-    <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions"
-            class="org.alfresco.repo.content.transform.RuntimeExecutableContentTransformerOptions" abstract="true">
-        <property name="propertyValues">
-            <props>
-            </props>
-        </property>
-    </bean>
+    <!--<bean id="org_sharextras_media-viewers_thumbnail.transformationOptions"-->
+            <!--class="org.alfresco.repo.content.transform.RuntimeExecutableContentTransformerOptions" abstract="true">-->
+        <!--<property name="propertyValues">-->
+            <!--<props>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4"
-            parent="org_sharextras_media-viewers_thumbnail.transformationOptions">
-        <!--
-        <property name="propertyValues">
-            <props merge="true">
-                <prop key="outfile_opts">-ar 44100 -ab 96k -vcodec libx264 -crf 25 -g 250 -r 25</prop>
-            </props>
-        </property>
-        -->
-    </bean>
+    <!--<bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4"-->
+            <!--parent="org_sharextras_media-viewers_thumbnail.transformationOptions">-->
+        <!--&lt;!&ndash;-->
+        <!--<property name="propertyValues">-->
+            <!--<props merge="true">-->
+                <!--<prop key="outfile_opts">-ar 44100 -ab 96k -vcodec libx264 -crf 25 -g 250 -r 25</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+        <!--&ndash;&gt;-->
+    <!--</bean>-->
 
-    <bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.mp3"
-            parent="org_sharextras_media-viewers_thumbnail.transformationOptions">
-        <!--
-        <property name="propertyValues">
-            <props merge="true">
-                <prop key="outfile_opts"></prop>
-            </props>
-        </property>
-        -->
-    </bean>
+    <!--<bean id="org_sharextras_media-viewers_thumbnail.transformationOptions.mp3"-->
+            <!--parent="org_sharextras_media-viewers_thumbnail.transformationOptions">-->
+        <!--&lt;!&ndash;-->
+        <!--<property name="propertyValues">-->
+            <!--<props merge="true">-->
+                <!--<prop key="outfile_opts"></prop>-->
+            <!--</props>-->
+        <!--</property>-->
+        <!--&ndash;&gt;-->
+    <!--</bean>-->
 
-    <!-- H264 thumbnail options -->
-    <bean id="org_sharextras_media-viewers_thumbnail.register.h264preview" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">
-        <property name="thumbnailRegistry" ref="thumbnailRegistry" />
-        <property name="thumbnailDefinition">
-            <!-- H264 preview thumbnail options -->
-            <bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
-                <property name="name" value="h264preview" />
-                <property name="mimetype" value="video/mp4"/>
-                <property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4" />
-                <property name="runAs" value="System"/>
-            </bean>
-        </property>
-    </bean>
+    <!--&lt;!&ndash; H264 thumbnail options &ndash;&gt;-->
+    <!--<bean id="org_sharextras_media-viewers_thumbnail.register.h264preview" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">-->
+        <!--<property name="thumbnailRegistry" ref="thumbnailRegistry" />-->
+        <!--<property name="thumbnailDefinition">-->
+            <!--&lt;!&ndash; H264 preview thumbnail options &ndash;&gt;-->
+            <!--<bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">-->
+                <!--<property name="name" value="h264preview" />-->
+                <!--<property name="mimetype" value="video/mp4"/>-->
+                <!--<property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.mp4" />-->
+                <!--<property name="runAs" value="System"/>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <!-- MP3 thumbnail options -->
-    <bean id="org_sharextras_media-viewers_thumbnail.register.mp3preview" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">
-        <property name="thumbnailRegistry" ref="thumbnailRegistry" />
-        <property name="thumbnailDefinition">
-            <!-- MP3 preview thumbnail options -->
-            <bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
-               <property name="name" value="mp3preview" />
-               <property name="mimetype" value="audio/mpeg"/>
-                <property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.mp3" />
-               <property name="runAs" value="System"/>
-            </bean>
-        </property>
-    </bean>
+    <!--&lt;!&ndash; MP3 thumbnail options &ndash;&gt;-->
+    <!--<bean id="org_sharextras_media-viewers_thumbnail.register.mp3preview" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">-->
+        <!--<property name="thumbnailRegistry" ref="thumbnailRegistry" />-->
+        <!--<property name="thumbnailDefinition">-->
+            <!--&lt;!&ndash; MP3 preview thumbnail options &ndash;&gt;-->
+            <!--<bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">-->
+               <!--<property name="name" value="mp3preview" />-->
+               <!--<property name="mimetype" value="audio/mpeg"/>-->
+                <!--<property name="transformationOptions" ref="org_sharextras_media-viewers_thumbnail.transformationOptions.mp3" />-->
+               <!--<property name="runAs" value="System"/>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <!-- Full size image thumbnail options -->
-    <bean id="org_sharextras_media-viewers_thumbnail.register.imgpreviewfull" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">
-        <property name="thumbnailRegistry" ref="thumbnailRegistry" />
-        <property name="thumbnailDefinition">
-            <!-- Image preview thumbnail options -->
-            <bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">
-                <property name="name" value="imgpreviewfull" />
-                <property name="mimetype" value="image/jpeg"/>
-                <property name="transformationOptions">
-                    <bean class="org.alfresco.repo.content.transform.magick.ImageTransformationOptions">
-                        <property name="resizeOptions">
-                            <bean class="org.alfresco.repo.content.transform.magick.ImageResizeOptions">
-                                <property name="width" value="100"/>
-                                <property name="height" value="100"/>
-                                <property name="percentResize" value="true"/>
-                                <property name="maintainAspectRatio" value="false"/>
-                                <property name="resizeToThumbnail" value="false" />
-                            </bean>
-                         </property>
-                    </bean>
-                    <!--
-                    <bean class="org.alfresco.service.cmr.repository.TransformationOptions" />
-                    -->
-                </property>
-                <property name="placeHolderResourcePath" value="alfresco/thumbnail/thumbnail_placeholder_medium.jpg" />
-                <property name="runAs" value="System"/>
-            </bean>
-        </property>
-    </bean>
+    <!--&lt;!&ndash; Full size image thumbnail options &ndash;&gt;-->
+    <!--<bean id="org_sharextras_media-viewers_thumbnail.register.imgpreviewfull" class="org.alfresco.repo.thumbnail.ThumbnailDefinitionSpringRegisterer">-->
+        <!--<property name="thumbnailRegistry" ref="thumbnailRegistry" />-->
+        <!--<property name="thumbnailDefinition">-->
+            <!--&lt;!&ndash; Image preview thumbnail options &ndash;&gt;-->
+            <!--<bean class="org.alfresco.repo.thumbnail.ThumbnailDefinition">-->
+                <!--<property name="name" value="imgpreviewfull" />-->
+                <!--<property name="mimetype" value="image/jpeg"/>-->
+                <!--<property name="transformationOptions">-->
+                    <!--<bean class="org.alfresco.repo.content.transform.magick.ImageTransformationOptions">-->
+                        <!--<property name="resizeOptions">-->
+                            <!--<bean class="org.alfresco.repo.content.transform.magick.ImageResizeOptions">-->
+                                <!--<property name="width" value="100"/>-->
+                                <!--<property name="height" value="100"/>-->
+                                <!--<property name="percentResize" value="true"/>-->
+                                <!--<property name="maintainAspectRatio" value="false"/>-->
+                                <!--<property name="resizeToThumbnail" value="false" />-->
+                            <!--</bean>-->
+                         <!--</property>-->
+                    <!--</bean>-->
+                    <!--&lt;!&ndash;-->
+                    <!--<bean class="org.alfresco.service.cmr.repository.TransformationOptions" />-->
+                    <!--&ndash;&gt;-->
+                <!--</property>-->
+                <!--<property name="placeHolderResourcePath" value="alfresco/thumbnail/thumbnail_placeholder_medium.jpg" />-->
+                <!--<property name="runAs" value="System"/>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 </beans>

@@ -6,22 +6,6 @@
             the web previewer plugins
         -->
         <module>
-            <id>Video Player</id>
-            <version>${noSnapshotVersion}</version>
-            <customizations>
-                <customization>
-                    <targetPackageRoot>org.alfresco.components.preview</targetPackageRoot>
-                    <sourcePackageRoot>org.sharextras.customization.media-previews.videoplayer</sourcePackageRoot>
-                </customization>
-            </customizations>
-            <auto-deploy>true</auto-deploy>
-        </module>
-
-        <!--
-            Customization modules for adding i18n labels and importing client-side dependencies for
-            the web previewer plugins
-        -->
-        <module>
             <id>PDF.js Original</id>
             <version>${noSnapshotVersion}</version>
             <customizations>
@@ -41,7 +25,7 @@
             <auto-deploy>false</auto-deploy>
         </module>
 
-        <module>
+<!--        <module>
             <id>GIF Player</id>
             <version>${noSnapshotVersion}</version>
             <customizations>
@@ -52,6 +36,7 @@
             </customizations>
             <auto-deploy>false</auto-deploy>
         </module>
+-->
 
 
         <module>
