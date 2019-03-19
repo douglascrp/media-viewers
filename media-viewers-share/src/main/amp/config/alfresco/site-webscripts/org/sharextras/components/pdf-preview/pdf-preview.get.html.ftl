@@ -34,8 +34,8 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     <!-- We use checksum resoures with parameter option, pdf.js is not happy when file names changes -->
     <link rel="resource" type="application/l10n" href='<@checksumResource src="${url.context}/res/extras/modules/PdfJsRaw/locale/locale.properties" parameter="alfchecksum"/>'>
-    <script type="text/javascript" src='<@checksumResource src="${url.context}/res/extras/modules/PdfJsRaw/pdf.js" parameter="alfchecksum"/>'></script>
-    <script type="text/javascript" src='<@checksumResource src="${url.context}/res/extras/modules/PdfJsRaw/pdf.worker.js" parameter="alfchecksum"/>'></script>
+    <script type="text/javascript" src='<@checksumResource src="${url.context}/res/extras/modules/PdfJsRaw/pdf.min.js" parameter="alfchecksum"/>'></script>
+    <script type="text/javascript" src='<@checksumResource src="${url.context}/res/extras/modules/PdfJsRaw/pdf.worker.min.js" parameter="alfchecksum"/>'></script>
     <script type="text/javascript" src='<@checksumResource src="${url.context}/res/extras/modules/PdfJsRaw/viewer.js" parameter="alfchecksum"/>'></script>
 
 </head>
