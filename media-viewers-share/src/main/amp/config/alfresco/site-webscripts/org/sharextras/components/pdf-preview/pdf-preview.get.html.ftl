@@ -110,11 +110,11 @@ See https://github.com/adobe-type-tools/cmap-resources
                     <span data-l10n-id="open_file_label">Open</span>
                 </button>
 
-                <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="53" data-l10n-id="print">
+                <button id="secondaryPrint" class="secondaryToolbarButton print ${printButtonMenu!"visibleMediumView"}" title="Print" tabindex="53" data-l10n-id="print">
                     <span data-l10n-id="print_label">Print</span>
                 </button>
 
-                <button id="secondaryDownload" class="secondaryToolbarButton download visibleMediumView" title="Download" tabindex="54" data-l10n-id="download">
+                <button id="secondaryDownload" class="secondaryToolbarButton download ${downloadButtonMenu!"visibleMediumView"}" title="Download" tabindex="54" data-l10n-id="download">
                     <span data-l10n-id="download_label">Download</span>
                 </button>
 
@@ -213,11 +213,11 @@ See https://github.com/adobe-type-tools/cmap-resources
                             <span data-l10n-id="open_file_label">Open</span>
                         </button>
 
-                        <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
+                        <button id="print" class="toolbarButton print ${printButton!"hiddenMediumView"}" title="Print" tabindex="33" data-l10n-id="print">
                             <span data-l10n-id="print_label">Print</span>
                         </button>
 
-                        <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
+                        <button id="download" class="toolbarButton download ${downloadButton!"hiddenMediumView"}" title="Download" tabindex="34" data-l10n-id="download">
                             <span data-l10n-id="download_label">Download</span>
                         </button>
                         <a href="#" id="viewBookmark" class="toolbarButton bookmark hidden" title="Current view (copy or open in new window)" tabindex="35" data-l10n-id="bookmark">

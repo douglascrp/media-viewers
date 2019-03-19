@@ -199,8 +199,8 @@
                 var previewHeight = this.wp.setupPreviewSize();
                 Dom.setAttribute(this.wp.getPreviewerElement(), "height", (previewHeight - 10).toString());
                 var displaysource = '<iframe id="' + this.wp.id +'-PdfJsRaw" name="PdfJsRaw" src="' + Alfresco.constants.URL_PAGECONTEXT + 'pdf-preview?file=' + encodeURIComponent(fileurl)
-                    + '" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="5" hspace="5"  style="height:' + previewHeight.toString()
-                    + 'px;"></iframe>';
+                    + '" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="5" hspace="5"  style="height:' + (previewHeight-10).toString()
+                    + 'px;width:100%"></iframe>';
 
                 window.addEventListener('resize', Alfresco.util.bind(this.onResize, this));
 

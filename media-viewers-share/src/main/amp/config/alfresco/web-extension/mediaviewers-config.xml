@@ -1,0 +1,18 @@
+<alfresco-config>
+
+    <config evaluator="string-compare" condition="PdfJsRaw">
+        <!-- Buttons default visibility -->
+        <!-- hidden, hiddenMediumView, hiddenLargeView -->
+        <buttons>
+            <download>hiddenMediumView</download>
+            <print>hiddenMediumView</print>
+        </buttons>
+        <!-- Buttons Menu -->
+        <!-- hidden, visibleMediumView -->
+        <buttonsMenu>
+            <download>visibleMediumView</download>
+            <print>visibleMediumView</print>
+        </buttonsMenu>
+    </config>
+
+</alfresco-config>
