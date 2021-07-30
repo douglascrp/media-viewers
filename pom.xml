@@ -15,8 +15,8 @@
     </parent>
 
     <properties>
-        <alfresco.repo.version>LX102</alfresco.repo.version>
-        <alfresco.share.version>LX102</alfresco.share.version>
+        <alfresco.repo.version>5.1.e</alfresco.repo.version>
+        <alfresco.share.version>5.1.e</alfresco.share.version>
         <maven.tomcat.version>2.2</maven.tomcat.version>
         <tomcat.version>7.0.93</tomcat.version>
     </properties>
