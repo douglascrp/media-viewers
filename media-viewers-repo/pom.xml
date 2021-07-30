@@ -63,7 +63,13 @@
         <dependency>
             <groupId>${alfresco.groupId}</groupId>
             <artifactId>alfresco-repository</artifactId>
-            <scope>provided</scope>
+            <!-- exclude broken / irrelevant transitive dependencies -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.social</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>${alfresco.groupId}</groupId>
